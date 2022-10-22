@@ -42,10 +42,14 @@
         <input type="text" id="ipv6" name="ipv6" minlength="7" pattern="[0-9]{1-4}:[a-z0-9]{1-4}:[0-9]{1-4}:[0-9]{1-4}:[0-9]{1-4}:[0-9]{1-4}:[0-9]{1-4}:[0-9]{1-4}" placeholder="Enter your ipv6." required> <br>
         <label for="phone">Add your phone:</label>
         <input type="tel" id="phone" name="phone" pattern="(\d{9}|((\d{3}[\s-\/]{0,1}){3}))" placeholder="Enter your phone." required> <br>
-        <label for="Choose date:">Start date:</label>
-        <input type="date" id="start" name="choose_date" placeholder="choose date" required> <br>
-        <label for="Choose date in range (17-22.10.2022):">Start date:</label>
-        <input type="date" id="start" name="choose_date_limit" placeholder="choose date from range" min="2022-10-17" max="2022-10-21" required> <br>
+        <label for="choose_date">Choose date:</label>
+        <input type="date" id="start" name="choose_date" value="2022-10-21" required> <br>
+        <label for="choose_date_limit">Choose date in range (17-21.10.2022):</label>
+        <input type="date" id="start" name="choose_date_limit" value="2022-10-21" min="2022-10-17" max="2022-10-21" required> <br>
+        <label for="time">Choose time:</label>
+        <input type="time" id="time" name="time" value="23:11" required> <br>
+        <label for="time2">Choose time:</label>
+        <input type="time" id="time2" name="time2" value="11:11" min="00:00" max="12:00" required> <br>
         
         <input type="submit" value="Submit all"> <br>
         <input onclick="change()" type="button" value="Uzupełnij automatycznie dane" id="myButton1"></input>
@@ -75,9 +79,13 @@
             element = document.getElementById("phone");
             element.value = '48 303 997 505';
             element = document.getElementById("choose_date");
-            element.value = '2022-10-22';
+            element.value = '2022-10-21';
             element = document.getElementById("choose_date_limit");
             element.value = '2022-10-21';
+            element = document.getElementById("time");
+            element.value = '23:11';
+            element = document.getElementById("time2");
+            element.value = '11:11';
 			}
         </script>
     </form>
