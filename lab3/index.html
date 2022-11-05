@@ -25,9 +25,11 @@
                 dragged = target;
                 id = target.id;
                 list = target.parentNode.children;
-                for(let i = 0; i < list.length; i += 1) {
-                    if(list[i] === dragged){
-                    index = i;
+                for (let i = 0; i < list.length; i += 1)
+                {
+                    if (list[i] === dragged)
+                    {
+                        index = i;
                     }
                 }
             });
@@ -37,19 +39,24 @@
             });
 
             document.addEventListener("drop", ({target}) => {
-            if(target.className == "dropzone" && target.id !== id) {
+            if (target.className == "dropzone" && target.id !== id) {
                 dragged.remove( dragged );
-                for(let i = 0; i < list.length; i += 1) {
-                    if(list[i] === target){
-                    indexDrop = i;
+                for (let i = 0; i < list.length; i += 1)
+                {
+                    if (list[i] === target)
+                    {
+                        indexDrop = i;
                     }
                 }
-                console.log(index, indexDrop);
-                if(index > indexDrop) {
-                    target.before( dragged );
-                } else {
-                target.after( dragged );
-                }
+                    console.log(index, indexDrop);
+                    if (index > indexDrop)
+                    {
+                        target.before( dragged );
+                    }
+                    else
+                    {
+                        target.after( dragged );
+                    }
                 }
             });
         </script>
