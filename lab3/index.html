@@ -2,9 +2,9 @@
 	<head>
 	<meta charset="utf-8">
 	<style>
-        body{
+		body{
 			padding: 0;
-			margin: 0;
+            margin: 0;
 		}
 		.button {
 			border: 0;
@@ -28,15 +28,18 @@
 			top: 60%;
             left: 86%;
 		}
-
+		.drag_box {
+			width: 100px;
+			height: 100px;
+			display: block;
+			position: absolute;
+		}
         .dropzone {
             width: 100%;
             height: 6%;
         }
-
 	</style>
 	</head>
-
 	<body>
         <ol style="margin: 0px;">
             <li class="dropzone" style="background: red;" id='0' draggable="true">Element numer: 1</li>
@@ -91,10 +94,59 @@
                 }
             });
         </script>
-        <div class="area">
-        </div>
-        <div class="button">
+		<div class="area">
+		</div>
+		<div class="button">
 			<button id="gen_rand_box" onclick="addBox()">Generuj klocek</button>
 		</div>
-    </body>
+	</body>
+	<script>
+		var area = document.querySelector('.area');
+
+		function addBox() {
+			var box = document.createElement('div');
+			box.classList.add('drag_box');
+			box.style.backgroundColor = `hsl(${parseInt(Math.random() * 360)}, 100%, 50%)`;
+			box.style.top = Math.random() * 150 + area.offsetHeight / 2;
+			box.style.left = Math.random() * 150 + area.offsetWidth / 2;
+			area.appendChild(box);
+			dragElement(box);
+		}
+
+		dragElement(document.getElementById("e1"));
+		dragElement(document.getElementById("e2"));
+
+		function dragElement(elmnt) {
+			var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+			elmnt.onmousedown = dragMouseDown;
+
+			function dragMouseDown(e)
+            {
+				e = e || window.event;
+				e.preventDefault();
+				pos3 = e.clientX;
+				pos4 = e.clientY;
+				document.onmouseup = closeDragElement;
+				document.onmousemove = elementDrag;
+			}
+
+			function elementDrag(e)
+            {
+				e = e || window.event;
+				e.preventDefault();
+				pos1 = pos3 - e.clientX;
+				pos2 = pos4 - e.clientY;
+				pos3 = e.clientX;
+				pos4 = e.clientY;
+				elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+				elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+			}
+            
+			function closeDragElement()
+            {
+				document.onmouseup = null;
+				document.onmousemove = null;
+			}
+		}
+	</script>
 </html>
