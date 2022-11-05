@@ -48,67 +48,67 @@
             <li class="dropzone" style="background: yellow;" id='3' draggable="true">Element numer: 4</li>
             <li class="dropzone" style="background: pink;" id='4' draggable="true">Element numer: 5</li>
         </ol>
-        <script>
-            let dragged;
-            let id;
-            let index;
-            let indexDrop;
-            let list;
 
-            document.addEventListener("dragstart", ({target}) => {
-                dragged = target;
-                id = target.id;
-                list = target.parentNode.children;
-                for (let i = 0; i < list.length; i += 1)
-                {
-                    if (list[i] === dragged)
-                    {
-                        index = i;
-                    }
-                }
-            });
-
-            document.addEventListener("dragover", (event) => {
-                event.preventDefault();
-            });
-
-            document.addEventListener("drop", ({target}) => {
-            if (target.className == "dropzone" && target.id !== id) {
-                dragged.remove( dragged );
-                for (let i = 0; i < list.length; i += 1)
-                {
-                    if (list[i] === target)
-                    {
-                        indexDrop = i;
-                    }
-                }
-                    console.log(index, indexDrop);
-                    if (index > indexDrop)
-                    {
-                        target.before( dragged );
-                    }
-                    else
-                    {
-                        target.after( dragged );
-                    }
-                }
-            });
-        </script>
-		<div class="area">
-		</div>
+		<div class="area"></div>
+        
 		<div class="button">
 			<button id="gen_rand_box" onclick="addBox()">Generuj klocek</button>
 		</div>
 	</body>
 	<script>
+        let dragged;
+        let id;
+        let index;
+        let indexDrop;
+        let list;
+        
+        document.addEventListener("dragstart", ({target}) => {
+            dragged = target;
+            id = target.id;
+            list = target.parentNode.children;
+            for (let i = 0; i < list.length; i += 1)
+            {
+                if (list[i] === dragged)
+                {
+                    index = i;
+                }
+            }
+        });
+        
+        document.addEventListener("dragover", (event) => {
+            event.preventDefault();
+        });
+        
+        document.addEventListener("drop", ({target}) => {
+        if (target.className == "dropzone" && target.id !== id) {
+            dragged.remove( dragged );
+            for (let i = 0; i < list.length; i += 1)
+            {
+                if (list[i] === target)
+                {
+                    indexDrop = i;
+                }
+            }
+                console.log(index, indexDrop);
+                if (index > indexDrop)
+                {
+                    target.before( dragged );
+                }
+                else
+                {
+                    target.after( dragged );
+                }
+            }
+        });
+
 		var area = document.querySelector('.area');
 
 		function addBox() {
 			var box = document.createElement('div');
 			box.classList.add('drag_box');
 			box.style.backgroundColor = `hsl(${parseInt(Math.random() * 360)}, 100%, 50%)`;
-			box.style.top = Math.random() * 150 + area.offsetHeight / 2;
-			box.style.left = Math.random() * 150 + area.offsetWidth / 2;
+			box.style.top = Math.random() * 350 + area.offsetHeight / 2;
+			box.style.left = Math.random() * 350 + area.offsetWidth / 2;
 			area.appendChild(box);
 			dragElement(box);
 		}
@@ -141,7 +141,7 @@
 				elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
 				elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
 			}
-            
+
 			function closeDragElement()
             {
 				document.onmouseup = null;
