@@ -2,6 +2,36 @@
 	<head>
 	<meta charset="utf-8">
 	<style>
+        body{
+			padding: 0;
+			margin: 0;
+		}
+		.button {
+			border: 0;
+			background: lime;
+			width: 20%;
+			height: 80%;
+			display: block;
+			float: left;
+		}
+		.area {
+			background: green;
+			width: 80%;
+			height: 80%;
+			display: block;
+			float: left;
+		}
+		#gen_rand_box {
+			padding: 15px;
+			font-size: 15pt;
+			position: absolute;
+			top: 50%;
+		}
+
+        .dropzone {
+            width: 100%;
+            height: 5%;
+        }
 
 	</style>
 	</head>
@@ -63,7 +93,7 @@
         <div class="area">
         </div>
         <div class="button">
-			<button id="gen_box" onclick="addBox()">Generuj klocek</button>
+			<button id="gen_rand_box" onclick="addBox()">Generuj klocek</button>
 		</div>
     </body>
 </html>
