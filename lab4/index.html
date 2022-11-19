@@ -138,11 +138,16 @@
           ID: "QWE 57685",
           ipv4: '123.123.12.32',
           url: "https://jakubgolebiowski.github.io/lab4/index.html",
-          windows_file_from: "c:\windows\system64",
-          windows_file_from2: "c:\windows\system64",
+          windows_file_from: "c:\\windows\\system64",
+          windows_file_from2: "c:\\windows\\system64",
           linux_file_form: "/etc/usr",
           ipv6: "::ffff:c100:0280",
           phone: "48 303 597 500",
+          choose_date: "2022-10-21",
+          choose_date_limit: "2022-10-21",
+          time: "23:11",
+          time2: "11:11",
+          color: "#e66465",
         },
         {
           email: "my_email@gmail.com",
@@ -155,12 +160,17 @@
           windows_file_from2: "c:\\windows\\system34",
           linux_file_form: "/etc/bin",
           ipv6: "::ffff:c100:0283",
-          phone: "48 303 597 504"
+          phone: "48 303 597 504",
+          choose_date: "2022-10-21",
+          choose_date_limit: "2022-10-21",
+          time: "23:11",
+          time2: "11:11",
+          color: "#e66465",
         },
       ];
 
       let db;
-      let request = window.indexedDB.open("newDatabase", 1);
+      let request = window.indexedDB.open("newDatabaseNew", 1);
 
       request.onerror = function (event) {
         console.log("BŁĄD: Otwieranie bazy danych nie poszło pomyślnie");
@@ -189,6 +199,11 @@
         objectStore.createIndex("linux_file_form", "file_linux", { unique: false });
         objectStore.createIndex("ipv6", "ipv6", { unique: false });
         objectStore.createIndex("phone", "phone", { unique: false });
+        objectStore.createIndex("choose_date", "choose_date", { unique: false });
+        objectStore.createIndex("choose_date_limit", "choose_date_limit", { unique: false });
+        objectStore.createIndex("time", "time", { unique: false });
+        objectStore.createIndex("time2", "time2", { unique: false });
+        objectStore.createIndex("color", "color", { unique: false });
 
         for (var i in clientData) {
           objectStore.add(clientData[i]);
@@ -215,6 +230,11 @@
             linux_file_form: formElements[8].value,
             ipv6: formElements[9].value,
             phone: formElements[10].value,
+            choose_date: formElements[11].value,
+            choose_date_limit: formElements[12].value,
+            time: formElements[13].value,
+            time2: formElements[14].value,
+            color: formElements[16].value,
           });
 
         request.onsuccess = function (event) {
