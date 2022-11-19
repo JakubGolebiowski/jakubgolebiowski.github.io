@@ -147,6 +147,7 @@
           choose_date_limit: "2022-10-21",
           time: "23:11",
           time2: "11:11",
+          time3: "AM",
           color: "#e66465",
         },
         {
@@ -165,12 +166,13 @@
           choose_date_limit: "2022-10-21",
           time: "23:11",
           time2: "11:11",
+          time3: "PM",
           color: "#e66465",
         },
       ];
 
       let db;
-      let request = window.indexedDB.open("newDatabaseNew", 1);
+      let request = window.indexedDB.open("newDatabaseNew42", 1);
 
       request.onerror = function (event) {
         console.log("BŁĄD: Otwieranie bazy danych nie poszło pomyślnie");
@@ -203,6 +205,7 @@
         objectStore.createIndex("choose_date_limit", "choose_date_limit", { unique: false });
         objectStore.createIndex("time", "time", { unique: false });
         objectStore.createIndex("time2", "time2", { unique: false });
+        objectStore.createIndex("time3", "time3", { unique: false });
         objectStore.createIndex("color", "color", { unique: false });
 
         for (var i in clientData) {
@@ -234,6 +237,7 @@
             choose_date_limit: formElements[12].value,
             time: formElements[13].value,
             time2: formElements[14].value,
+            time3: formElements[15].value,
             color: formElements[16].value,
           });
 
@@ -244,7 +248,7 @@
 
         request.onerror = function (event) {
           alert(
-            "Nie można dodać \r\ dana kluczowa nie może się powtarzać! "
+            "Nie można dodać \r\ dana kluczowa nie może się powtarzać! EMAIL, NIP i ID muszą być unikatowe."
           );
         };
       }
