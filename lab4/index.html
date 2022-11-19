@@ -99,7 +99,67 @@
 			}
         </script>
     </form>
+    <br />
+    <div id="searchFiled">
+      <input id="searchBar" name="search" type="text" placeholder="Search..." />
+      <button onclick="return search(event)">Search</button>
+    </div>
+    <br />
+    <div id="tableDiv"></div>
+    <br />
+    <script type="text/javascript">
+      //sprawdź różne platformy
+      window.indexedDB =
+        window.indexedDB ||
+        window.mozIndexedDB ||
+        window.webkitIndexedDB ||
+        window.msIndexedDB;
 
+      //prefixes of window.IDB objects
+      window.IDBTransaction =
+        window.IDBTransaction ||
+        window.webkitIDBTransaction ||
+        window.msIDBTransaction;
+      window.IDBKeyRange =
+        window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
+
+      if (!window.indexedDB) {
+        window.alert(
+          "Twoja przeglądarka nie wspiera IndexedDB."
+        );
+      }
+
+      const clientData = [
+        {
+          email: "not_my_email@gmail.com",
+          adress: "90-051",
+          nip: "123-125-53-23",
+          ID: "QWE 57685",
+          ipv4: '123.123.12.32',
+          url: "https://jakubgolebiowski.github.io/lab4/index.html",
+          windows_file_from: "c:\windows\system64",
+          windows_file_from2: "c:\windows\system64",
+          linux_file_form: "/etc/usr",
+          ipv6: "::ffff:c100:0280",
+          phone: "48 303 597 500",
+        },
+        {
+          email: "my_email@gmail.com",
+          adress: "90-751",
+          nip: "123-341-53-23",
+          ID: "QWE 58785",
+          ipv4: '129.129.12.32',
+          url: "https://jakubgolebiowski.github.io/lab1/index.html",
+          windows_file_from: "c:\windows\system34",
+          windows_file_from2: "c:\windows\system34",
+          linux_file_form: "/etc/bin",
+          ipv6: "::ffff:c100:0283",
+          phone: "48 303 597 504",
+        },
+      ];
+
+
+    </script>
 
     <a href='https://jakubgolebiowski.github.io/'> Strona główna.</a>
 	</body>
