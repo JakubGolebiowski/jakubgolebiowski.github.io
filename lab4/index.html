@@ -21,7 +21,7 @@
 	<body>
     <h1>Laboratoria</h1>
     <p>Hello world!</p>
-		<form>
+		<form id="addForm" onsubmit="return add(event)">
         <label for="email">Add your email:</label>
         <input type="email" id="email" name="email" placeholder="Enter your email" required> <br>
         <label for="adress">Add your adress:</label>
@@ -58,9 +58,9 @@
         </select> <br>
         <label for="color">Choose color:</label>
         <input type="color" id="color" name="color" required> <br>
-
-        <input type="submit" value="Submit all"> <br>
-        <input onclick="change()" type="button" value="Uzupełnij automatycznie dane losowe" id="myButton1"></input>
+        <br>
+        <input onclick="change()" type="button" value="Uzupełnij automatycznie dane losowe" id="myButton1"></input><br><br><br>
+        <input id="submitBtn" type="submit" value="Wyślij wszystko"> <br>
         <script type="text/javascript">
         function change( el )
         {
@@ -99,6 +99,7 @@
 			}
         </script>
     </form>
+
 
     <a href='https://jakubgolebiowski.github.io/'> Strona główna.</a>
 	</body>
