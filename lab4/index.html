@@ -217,13 +217,13 @@
           });
 
         request.onsuccess = function (event) {
-          console.log("Client added");
+          console.log("Client dodany");
           drawTable();
         };
 
         request.onerror = function (event) {
           alert(
-            "Unable to add data\r\ user with that email aready exist in your database! "
+            "Nie można dodać \r\ dana kluczowa nie może się powtarzać! "
           );
         };
       }
@@ -264,7 +264,6 @@
           row.appendChild(th);
         }
       }
-
 
       function generateTable(table, filterItems = []) {
         let objectStore = db.transaction("client").objectStore("client");
@@ -316,6 +315,18 @@
         };
       }
 
+      function drawTable(filterItems) {
+        if (document.getElementById("tbody") !== null) {
+          document.querySelector("#tbody").remove();
+        }
+
+        let table = document.createElement("table");
+        table.setAttribute("id", "tbody");
+        let data = Object.keys(clientData[0]);
+        generateTable(table, filterItems);
+        generateTableHead(table, data);
+        document.getElementById("tableDiv").appendChild(table);
+      }
     </script>
 
     <a href='https://jakubgolebiowski.github.io/'> Strona główna.</a>
