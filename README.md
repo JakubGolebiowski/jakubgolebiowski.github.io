@@ -8,6 +8,8 @@
     <p>Hello world!</p>
     <a href='/lab1/index.html'> Zadanie 1.</a>
     <a href='/lab2/index.html'> Zadanie 2.</a>
+    <a href='/lab3/index.html'> Zadanie 3.</a>
+    <a href='/lab4/index.html'> Zadanie 4.</a>
 </body>
 
 </html> 
