@@ -228,6 +228,43 @@
         };
       }
 
+      function search(event) {
+        event.preventDefault();
+
+        let searchInputs = document.getElementById("searchBar").value.split(' ');
+        
+        drawTable(searchInputs);
+      }
+
+      function remove(id) {
+        let request = db
+          .transaction(["client"], "readwrite")
+          .objectStore("client")
+          .delete(id);
+
+        request.onsuccess = function (event) {
+          console.log(`Client ${id} usunięty...`);
+          drawTable();
+        };
+      }
+
+      function generateTableHead(table, data) {
+        let thead = table.createTHead();
+        let row = thead.insertRow();
+
+        let th = document.createElement("th");
+        let text = document.createTextNode("id");
+        th.appendChild(text);
+        row.appendChild(th);
+
+        for (let key of data) {
+          let th = document.createElement("th");
+          let text = document.createTextNode(key);
+          th.appendChild(text);
+          row.appendChild(th);
+        }
+      }
+
 
     </script>
 
