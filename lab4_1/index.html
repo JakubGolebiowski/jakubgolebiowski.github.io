@@ -1,14 +1,360 @@
+<!DOCTYPE html>
 <html>
-<head>
-    <meta name="copyright" content="2022 Jakub Gołębiowski. All Rights Reserved." />
-    <title>Laboratorium 5</title>
-</head>
+	<head>
+        <title>Laboratorium 4</title>
+        <meta name="copyright" content="2022 Jakub Gołębiowski. All Rights Reserved." /> 
+        <title>Laboratorium 2</title>
+		<style>
+			input:invalid {
+				border-color: red;
+			}
+			input:required:valid {
+				border-color: green;
+			}
 
-<body>
+			form > div >* {
+				margin-bottom: 5px;
+				padding: 5px;
+			}
+		</style>
+	</head>
+
+	<body>
     <h1>Laboratoria</h1>
+    <p>Hello world!</p>
+		<form id="addForm" onsubmit="return add(event)">
+        <label for="email">Add your email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required> <br>
+        <label for="adress">Add your adress:</label>
+        <input type="text" id="adress" name="adress" pattern="[0-9]{2}-[0-9]{3}" placeholder="Enter your adress." required> <br>
+        <label for="nip">Add your nip:</label>
+        <input type="text" id="nip" name="nip" pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" placeholder="Enter your NIP." required> <br>
+        <label for="ID">Add your ID:</label>
+        <input type="text" id="ID" name="ID" pattern="[A-Z]{3} [0-9]{5}" placeholder="Enter your ID." required> <br>
+        <label for="ipv4">Add your ipv4:</label>
+        <input type="text" id="ipv4" name="ipv4" pattern="\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.|$)){4}\b" placeholder="Enter your ipv4." required> <br>
+        <label for="url">Add your url:</label>
+        <input type="url" name="url" id="url" placeholder="https://example.com" pattern="https://.*" required> <br>
+        <label for="file_dos">Add your windows file from: *:\windows\*, *:\winnt\*, *:\win\*, *:\dos\*, *:\msdos\*:</label>
+        <input type="text" id="file_dos" name="file_dos" accept="*:\windows\*, *:\winnt\*, *:\win\*, *:\dos\*, *:\msdos\*" required> <br>
+        <label for="text">Add your windows file from: *:\windows\*, *:\winnt\*, *:\win\*, *:\dos\*, *:\msdos\*:</label>
+        <input type="text" id="file_dos2" name="file_dos2" pattern="([a-zA-Z]:\\windows|winnt|win|dos|msdos)(\\[0-9a-z]+)" required> <br>
+        <label for="file_linux">Add your file from /etc/*:</label>
+        <input type="text" id="file_linux" name="file_linux" accept="/etc/*" required> <br>
+        <label for="ipv6">Add your ipv6:</label>
+        <input type="text" id="ipv6" name="ipv6" minlength="7" pattern="(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))" placeholder="Enter your ipv6." required> <br>
+        <label for="phone">Add your phone:</label>
+        <input type="tel" id="phone" name="phone" pattern="[0-9]{2} [0-9]{3} [0-9]{3} [0-9]{3}" placeholder="Enter your phone." required> <br>
+        <label for="choose_date">Choose date:</label>
+        <input type="date" id="choose_date" name="choose_date" required> <br>
+        <label for="choose_date_limit">Choose date in range (17-21.10.2022):</label>
+        <input type="date" id="choose_date_limit" name="choose_date_limit" min="2022-10-17" max="2022-10-21" required> <br>
+        <label for="time">Choose time:</label>
+        <input type="time" id="time" name="time" required> <br>
+        <label for="time2">Choose time:</label>
+        <input type="time" id="time2" name="time2" min="00:00" max="12:00" required>
+        <select name="time3" id="time3" required>
+            <option value="PM">PM</option>
+            <option value="AM">AM</option>
+        </select> <br>
+        <label for="color">Choose color:</label>
+        <input type="color" id="color" name="color" required> <br>
+        <br>
+        <input onclick="change()" type="button" value="Uzupełnij automatycznie dane losowe" id="myButton1"></input><br><br><br>
+        <input id="submitBtn" type="submit" value="Wyślij wszystko"> <br>
+        <script type="text/javascript">
+        function change( el )
+        {
+            var element = document.getElementById("email");
+            element.value = 'email@gmail.com';
+            element = document.getElementById("adress");
+            element.value = '90-000';
+            element = document.getElementById("nip");
+            element.value = '123-123-23-23';
+            element = document.getElementById("ID");
+            element.value = 'QWE 57684';
+            element = document.getElementById("ipv4");
+            element.value = '123.123.12.32';
+            element = document.getElementById("url");
+            element.value = 'https://jakubgolebiowski.github.io/lab2/index.html';
+            element = document.getElementById("file_dos");
+            element.value = 'c:\\windows\\system32';
+            element = document.getElementById("file_dos2");
+            element.value = 'c:\\windows\\system32';
+            element = document.getElementById("file_linux");
+            element.value = '/etc/src';
+            element = document.getElementById("ipv6");
+            element.value = '::ffff:c000:0280';
+            element = document.getElementById("phone");
+            element.value = '48 303 997 505';
+            element = document.getElementById("choose_date");
+            element.value = '2022-10-21';
+            element = document.getElementById("choose_date_limit");
+            element.value = '2022-10-21';
+            element = document.getElementById("time");
+            element.value = '23:11';
+            element = document.getElementById("time2");
+            element.value = '11:11';
+            element = document.getElementById("color");
+            element.value="#e66465";
+			}
+        </script>
+    </form>
+    <br />
+    <div id="searchFiled">
+      <input id="searchBar" name="search" type="text" placeholder="Search..." />
+      <button onclick="return search(event)">Search</button>
+    </div>
+    <br />
+    <div id="tableDiv"></div>
+    <br />
+    <script type="text/javascript">
+      //sprawdź różne platformy
+      window.indexedDB =
+        window.indexedDB ||
+        window.mozIndexedDB ||
+        window.webkitIndexedDB ||
+        window.msIndexedDB;
 
+      //prefixes of window.IDB objects
+      window.IDBTransaction =
+        window.IDBTransaction ||
+        window.webkitIDBTransaction ||
+        window.msIDBTransaction;
+      window.IDBKeyRange =
+        window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
+
+      if (!window.indexedDB) {
+        window.alert(
+          "Twoja przeglądarka nie wspiera IndexedDB."
+        );
+      }
+
+      const clientData = [
+        {
+          email: "not_my_email@gmail.com",
+          adress: "90-051",
+          nip: "123-125-53-23",
+          ID: "QWE 57685",
+          ipv4: '123.123.12.32',
+          url: "https://jakubgolebiowski.github.io/lab4/index.html",
+          windows_file_from: "c:\\windows\\system64",
+          windows_file_from2: "c:\\windows\\system64",
+          linux_file_form: "/etc/usr",
+          ipv6: "::ffff:c100:0280",
+          phone: "48 303 597 500",
+          choose_date: "2022-10-21",
+          choose_date_limit: "2022-10-21",
+          time: "23:11",
+          time2: "11:11",
+          time3: "AM",
+          color: "#e66465",
+        },
+        {
+          email: "my_email@gmail.com",
+          adress: "90-751",
+          nip: "123-341-53-23",
+          ID: "QWE 58785",
+          ipv4: '129.129.12.32',
+          url: "https://jakubgolebiowski.github.io/lab1/index.html",
+          windows_file_from: "c:\\windows\\system34",
+          windows_file_from2: "c:\\windows\\system34",
+          linux_file_form: "/etc/bin",
+          ipv6: "::ffff:c100:0283",
+          phone: "48 303 597 504",
+          choose_date: "2022-10-21",
+          choose_date_limit: "2022-10-21",
+          time: "23:11",
+          time2: "11:11",
+          time3: "PM",
+          color: "#e66465",
+        },
+      ];
+
+      let db;
+      let request = window.indexedDB.open("newDatabaseNew42", 1);
+
+      request.onerror = function (event) {
+        console.log("BŁĄD: Otwieranie bazy danych nie poszło pomyślnie");
+      };
+
+      request.onsuccess = function (event) {
+        db = request.result;
+        console.log("SUKCES: Baza danych " + db + " została otworzona poprawnie");
+        drawTable();
+      };
+
+      request.onupgradeneeded = function (event) {
+        var db = event.target.result;
+        var objectStore = db.createObjectStore("client", {
+          autoIncrement: true,
+        });
+
+        objectStore.createIndex("email", "email", { unique: true });
+        objectStore.createIndex("adress", "adress", { unique: false });
+        objectStore.createIndex("nip", "nip", { unique: true });
+        objectStore.createIndex("ID", "ID", { unique: true });
+        objectStore.createIndex("ipv4", "ipv4", { unique: false });
+        objectStore.createIndex("url", "url", { unique: false });
+        objectStore.createIndex("windows_file_from", "file_dos", { unique: false });
+        objectStore.createIndex("windows_file_from2", "file_dos2", { unique: false });
+        objectStore.createIndex("linux_file_form", "file_linux", { unique: false });
+        objectStore.createIndex("ipv6", "ipv6", { unique: false });
+        objectStore.createIndex("phone", "phone", { unique: false });
+        objectStore.createIndex("choose_date", "choose_date", { unique: false });
+        objectStore.createIndex("choose_date_limit", "choose_date_limit", { unique: false });
+        objectStore.createIndex("time", "time", { unique: false });
+        objectStore.createIndex("time2", "time2", { unique: false });
+        objectStore.createIndex("time3", "time3", { unique: false });
+        objectStore.createIndex("color", "color", { unique: false });
+
+        for (var i in clientData) {
+          objectStore.add(clientData[i]);
+        }
+      };
+
+      function add(event) {
+        event.preventDefault();
+
+        var formElements = document.getElementById("addForm");
+
+        var request = db
+          .transaction(["client"], "readwrite")
+          .objectStore("client")
+          .add({
+            email: formElements[0].value,
+            adress: formElements[1].value,
+            nip: formElements[2].value,
+            ID: formElements[3].value,
+            ipv4: formElements[4].value,
+            url: formElements[5].value,
+            windows_file_from: formElements[6].value,
+            windows_file_from2: formElements[7].value,
+            linux_file_form: formElements[8].value,
+            ipv6: formElements[9].value,
+            phone: formElements[10].value,
+            choose_date: formElements[11].value,
+            choose_date_limit: formElements[12].value,
+            time: formElements[13].value,
+            time2: formElements[14].value,
+            time3: formElements[15].value,
+            color: formElements[16].value,
+          });
+
+        request.onsuccess = function (event) {
+          console.log("Client dodany");
+          drawTable();
+        };
+
+        request.onerror = function (event) {
+          alert(
+            "Nie można dodać rekordu! EMAIL, NIP i ID muszą być unikatowe."
+          );
+        };
+      }
+
+      function search(event) {
+        event.preventDefault();
+
+        let searchInputs = document.getElementById("searchBar").value.split(' ');
+        
+        drawTable(searchInputs);
+      }
+
+      function remove(id) {
+        let request = db
+          .transaction(["client"], "readwrite")
+          .objectStore("client")
+          .delete(id);
+
+        request.onsuccess = function (event) {
+          console.log(`Client ${id} usunięty...`);
+          drawTable();
+        };
+      }
+
+      function generateTableHead(table, data) {
+        let thead = table.createTHead();
+        let row = thead.insertRow();
+
+        let th = document.createElement("th");
+        let text = document.createTextNode("id");
+        th.appendChild(text);
+        row.appendChild(th);
+
+        for (let key of data) {
+          let th = document.createElement("th");
+          let text = document.createTextNode(key);
+          th.appendChild(text);
+          row.appendChild(th);
+        }
+      }
+
+      function generateTable(table, filterItems = []) {
+        let objectStore = db.transaction("client").objectStore("client");
+
+        objectStore.openCursor().onsuccess = function (event) {
+          var cursor = event.target.result;
+
+          if (cursor) {
+            console.log(filterItems);
+            if (filterItems.length > 0 && filterItems[0] !== "") {
+              let exists = false;
+              for (let i = 0; i < filterItems.length; i++) {
+                const element = filterItems[i];
+                
+                if (Object.values(cursor.value).includes(element)) {
+                  exists = true
+                }
+              }
+
+              if (!exists) {
+                cursor.continue();
+                return;
+              }
+            }
+
+            console.log(cursor.value)
+
+            let row = table.insertRow();
+            let cell = row.insertCell();
+            let text = document.createTextNode(cursor.key);
+            cell.appendChild(text);
+            for (const [key, value] of Object.entries(cursor.value)) {
+              let cell = row.insertCell();
+              let text = document.createTextNode(value);
+              cell.appendChild(text);
+            }
+
+            cell = row.insertCell();
+            let removeButton = document.createElement("button");
+            removeButton.setAttribute("id", "removeButton" + cursor.key);
+            removeButton.setAttribute("onclick", `remove(${cursor.key})`);
+            removeButton.innerHTML = "usuń";
+            cell.appendChild(removeButton);
+
+            cursor.continue();
+          } else {
+            console.log("No more data");
+          }
+        };
+      }
+
+      function drawTable(filterItems) {
+        if (document.getElementById("tbody") !== null) {
+          document.querySelector("#tbody").remove();
+        }
+
+        let table = document.createElement("table");
+        table.setAttribute("id", "tbody");
+        let data = Object.keys(clientData[0]);
+        generateTable(table, filterItems);
+        generateTableHead(table, data);
+        document.getElementById("tableDiv").appendChild(table);
+      }
+    </script>
 
     <a href='https://jakubgolebiowski.github.io/'> Strona główna.</a>
-</body>
+	</body>
 
 </html>
