@@ -303,6 +303,7 @@
 							console.log("updated data successfully");
 							reloadList();
 						}
+                        
 					} else { 
 						var transaction = db.transaction(['name'], 'readwrite');
 						var objectStore1 = transaction.objectStore('name');
