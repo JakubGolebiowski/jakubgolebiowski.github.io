@@ -83,10 +83,12 @@
 
 		<div id="saved_users"></div>
 		<script type="text/javascript">
+		var email_id = 0;
         function change( el )
         {
+
             var element = document.getElementById("email");
-            element.value = 'email@gmail.com';
+            element.value = 'email'+email_id+'@gmail.com';
             element = document.getElementById("adress");
             element.value = '90-000';
             element = document.getElementById("nip");
@@ -117,6 +119,7 @@
             element.value = '11:11';
             element = document.getElementById("color");
             element.value="#e66465";
+			email_id += 1;
 			}
 
 			var db;
