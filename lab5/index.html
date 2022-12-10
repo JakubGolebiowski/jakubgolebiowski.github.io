@@ -52,7 +52,7 @@
         <input type="url" name="url" id="url" placeholder="https://example.com" pattern="https://.*" required> <br>
         <label for="file_dos">Add your windows file from: *:\windows\*, *:\winnt\*, *:\win\*, *:\dos\*, *:\msdos\*:</label>
         <input type="text" id="file_dos" name="file_dos" accept="*:\windows\*, *:\winnt\*, *:\win\*, *:\dos\*, *:\msdos\*" required> <br>
-        <label for="text">Add your windows file from: *:\windows\*, *:\winnt\*, *:\win\*, *:\dos\*, *:\msdos\*:</label>
+        <label for="file_dos2">Add your windows file from: *:\windows\*, *:\winnt\*, *:\win\*, *:\dos\*, *:\msdos\*:</label>
         <input type="text" id="file_dos2" name="file_dos2" pattern="([a-zA-Z]:\\windows|winnt|win|dos|msdos)(\\[0-9a-z]+)" required> <br>
         <label for="file_linux">Add your file from /etc/*:</label>
         <input type="text" id="file_linux" name="file_linux" accept="/etc/*" required> <br>
@@ -161,8 +161,8 @@
 
 					objectStore.transaction.oncomplete = event => {
 						var nameObjectStore = db.transaction("name", 'readwrite').objectStore('name');
-            			const fields = ["email", "adress", "nip", "ID", "ipv4", "url", "file_linux", "ipv6", "choose_date", "choose_date_limit", "time", "time2", "time3", "color"];
-						const examples = ["not_my_email@gmail.com", "90-051", "123-125-53-23", "QWE 57685", "123.123.12.32", "https://jakubgolebiowski.github.io/lab4/index.html", "/etc/src/bin", "::ffff:c000:0270","2022-10-21", "2022-10-21", "23:11", "11:11", "AM", "#e66465"];
+            			const fields = ["email", "adress", "nip", "ID", "ipv4", "url", "file_dos", "file_dos2", "file_linux", "ipv6", "choose_date", "choose_date_limit", "time", "time2", "time3", "color"];
+						const examples = ["not_my_email@gmail.com", "90-051", "123-125-53-23", "QWE 57685", "123.123.12.32", "https://jakubgolebiowski.github.io/lab4/index.html", "c:\windows\tmp", "c:\windows\System32", "/etc/src/bin", "::ffff:c000:0270","2022-10-21", "2022-10-21", "23:11", "11:11", "AM", "#e66465"];
 						var data = {}
 						for (let i = 0; i < fields.length; i++) {
 
@@ -210,6 +210,7 @@
 					}
 
 			}
+
 			function valueStr(obj) {
 				ret = "";
 				for (let x in obj) {
@@ -260,7 +261,7 @@
 
 				request.onsuccess = event => {
 					console.log("got data", request.result);
-					const fields = ["email", "adress", "nip", "ID", "ipv4", "url", "file_linux", "ipv6", "choose_date", "choose_date_limit", "time", "time2", "time3", "color"];
+					const fields = ["email", "adress", "nip", "ID", "ipv4", "url", "file_dos", "file_dos2", "file_linux", "ipv6", "choose_date", "choose_date_limit", "time", "time2", "time3", "color"];
 					var queried_object = JSON.parse(request.result.json);
 					for (var i of fields) {
 						if (i in document.forms[0]) {
@@ -275,7 +276,7 @@
 			}
 
 			function savedata() {
-				const fields = ["email", "adress", "nip", "ID", "ipv4", "url", "file_linux", "ipv6", "choose_date", "choose_date_limit", "time", "time2", "time3", "color"];
+				const fields = ["email", "adress", "nip", "ID", "ipv4", "url", "file_dos", "file_dos2", "file_linux", "ipv6", "choose_date", "choose_date_limit", "time", "time2", "time3", "color"];
 				var data = {}
 				for (var i of fields) {
           console.log(i)
