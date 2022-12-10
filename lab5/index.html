@@ -273,101 +273,100 @@
 			};
 		}
 
-			function savedata() {
-				const fields = ["email", "adress", "nip", "ID", "ipv4", "url", "file_dos", "file_dos2", "file_linux", "ipv6", "choose_date", "choose_date_limit", "time", "time2", "time3", "color"];
-				var data = {}
-				for (var i of fields) {
-          			console.log(i)
-					data[i] = document.forms[0][i].value.toString();
-				}
-				console.log("data", data);
-				var objectStore = db.transaction(['name']).objectStore('name');
-				var requestGet = objectStore.get(data.email);
+		function savedata() {
+			const fields = ["email", "adress", "nip", "ID", "ipv4", "url", "file_dos", "file_dos2", "file_linux", "ipv6", "choose_date", "choose_date_limit", "time", "time2", "time3", "color"];
+			var data = {}
+			for (var i of fields) {
+				console.log(i)
+				data[i] = document.forms[0][i].value.toString();
+			}
+			console.log("data", data);
+			var objectStore = db.transaction(['name']).objectStore('name');
+			var requestGet = objectStore.get(data.email);
 
-				requestGet.onerror = event => {
-					out.innerHTML = "error when getting data " + event.toString();
-				}
+			requestGet.onerror = event => {
+				out.innerHTML = "error when getting data " + event.toString();
+			}
 
-				requestGet.onsuccess = event => {
-					if (requestGet.result) { 
-						var res = requestGet.result;
-						res.json = JSON.stringify(data);
-						var objectStore2 = db.transaction(['name'], 'readwrite').objectStore('name');
-						var requestUpdate = objectStore2.put(res);
-						requestUpdate.onerror = event => {
-							out.innerHTML = "error when updating data " + event.toString();
-						}
+			requestGet.onsuccess = event => {
+				if (requestGet.result) { 
+					var res = requestGet.result;
+					res.json = JSON.stringify(data);
+					var objectStore2 = db.transaction(['name'], 'readwrite').objectStore('name');
+					var requestUpdate = objectStore2.put(res);
+					requestUpdate.onerror = event => {
+						out.innerHTML = "error when updating data " + event.toString();
+					}
 
-						requestUpdate.onsuccess = event => {
-							console.log("updated data successfully");
-							reloadList();
-						}
+					requestUpdate.onsuccess = event => {
+						console.log("updated data successfully");
+						reloadList();
+					}
                         
-					} else { 
-						var transaction = db.transaction(['name'], 'readwrite');
-						var objectStore1 = transaction.objectStore('name');
-						var requestAdd = objectStore1.add({myKey: data.email, json: JSON.stringify(data)});
+				} else { 
+					var transaction = db.transaction(['name'], 'readwrite');
+					var objectStore1 = transaction.objectStore('name');
+					var requestAdd = objectStore1.add({myKey: data.email, json: JSON.stringify(data)});
 
-						requestAdd.onerror = event => {
-							out.innerHTML = "error when updating data " + event.toString();
-						}
+					requestAdd.onerror = event => {
+						out.innerHTML = "error when updating data " + event.toString();
+					}
 
-						requestAdd.onsuccess = event => {
-							console.log("updated data successfully");
-							reloadList();
-						}
+					requestAdd.onsuccess = event => {
+						console.log("updated data successfully");
+						reloadList();
 					}
 				}
 			}
+		}
 
-			var fields = document.getElementsByClassName('removable_field');
+		var fields = document.getElementsByClassName('removable_field');
 
-			var draggableelement = null;
+		var draggableelement = null;
 
-			function dragstart(event) {
-				event.dataTransfer.setData('text/plain', event.target.id);
+		function dragstart(event) {
+			event.dataTransfer.setData('text/plain', event.target.id);
 				
-				event
-					.target
-					.style
-					.backgroundColor = 'yellow';
-
+			event
+				.target
+				.style
+				.backgroundColor = 'yellow';
 				draggableelement = event.target;
-			}
+		}
 			
-			function dragover(event) {
-				event.preventDefault();
-				event.target.style.background = 'pink';
-			}
-			function dragleave(event) {
-				event.preventDefault();
-				event.target.style.background = 'none';
-			}
+		function dragover(event) {
+			event.preventDefault();
+			event.target.style.background = 'pink';
+		}
+		function dragleave(event) {
+			event.preventDefault();
+			event.target.style.background = 'none';
+		}
 
-			function dropp(event) {
-    			event.preventDefault();
-				console.log("dropped");
-				let dropzone = event.target;
-				event.target.style.background = 'none';
-				draggableelement.style.background = 'none';
-				var temp = event.target.innerHTML + "";
-				document.forms[0].insertBefore(draggableelement, event.target.nextSibling);
-				document.forms[0].insertBefore(event.target.nextSibling, draggableelement);
-				draggableelement = null;
-				event.dataTransfer.clearData();
-			}
+		function dropp(event) {
+			event.preventDefault();
+			console.log("dropped");
+			let dropzone = event.target;
+			event.target.style.background = 'none';
+			draggableelement.style.background = 'none';
+			var temp = event.target.innerHTML + "";
+			document.forms[0].insertBefore(draggableelement, event.target.nextSibling);
+			document.forms[0].insertBefore(event.target.nextSibling, draggableelement);
+			draggableelement = null;
+			event.dataTransfer.clearData();
+		}
 
-			for (let e of fields) {
-				e.addEventListener('dragstart', dragstart);
-				e.addEventListener('drop', dropp);
-				e.addEventListener('dragover', dragover);
-				e.addEventListener('dragleave', dragleave);
-				e.setAttribute('draggable', true);
-			}
+		for (let e of fields) {
+			e.addEventListener('dragstart', dragstart);
+			e.addEventListener('drop', dropp);
+			e.addEventListener('dragover', dragover);
+			e.addEventListener('dragleave', dragleave);
+			e.setAttribute('draggable', true);
+		}
 
-			function removethis(e) {
-				e.target.parentElement.remove();
-			}
-		</script>
-	</body>
+		function removethis(e) {
+			e.target.parentElement.remove();
+		}
+	</script>
+</body>
 </html>
