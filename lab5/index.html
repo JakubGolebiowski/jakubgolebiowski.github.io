@@ -124,60 +124,55 @@
 
 		var db;
 		window.onload = () => {
-				
-		if (!('indexedDB' in window)) {
-			console.log("no indexeddb");
-			return;
-		}
-		var idb = window.indexedDB;
-		var request = idb.open('test-db1', 3);
-
-		request.onerror = event => {
-			console.log("Error happened: ", event);
-		}
-
-		request.onsuccess = event => {
-			db = event.target.result;
-			console.log("success");
-			var transaction = db.transaction(['name']);
-			var objectStore = transaction.objectStore('name');
-			var request = objectStore.getAll();
+			if (!('indexedDB' in window)) {
+				console.log("no indexeddb");
+				return;
+			}
+			var idb = window.indexedDB;
+			var request = idb.open('test-db1', 3);
 
 			request.onerror = event => {
-				out.innerHTML = "error when getting data " + event.toString();
+				console.log("Error happened: ", event);
 			}
 
 			request.onsuccess = event => {
-				reloadList();
-			}
+				db = event.target.result;
+				console.log("success");
+				var transaction = db.transaction(['name']);
+				var objectStore = transaction.objectStore('name');
+				var request = objectStore.getAll();
 
-			transaction.oncomplete = event => {
-				console.log("All done inital load");
-			};
-		}
-
-				request.onupgradeneeded = event => {
-					db = event.target.result;
-
-					var objectStore = db.createObjectStore("name", {keyPath: 'myKey'});
-
-					objectStore.createIndex("json", "json", { unique: false});
-
-					objectStore.transaction.oncomplete = event => {
-						var nameObjectStore = db.transaction("name", 'readwrite').objectStore('name');
-            			const fields = ["email", "adress", "nip", "ID", "ipv4", "url", "file_dos", "file_dos2", "file_linux", "ipv6", "choose_date", "choose_date_limit", "time", "time2", "time3", "color"];
-						const examples = ["not_my_email@gmail.com", "90-051", "123-125-53-23", "QWE 57685", "123.123.12.32", "https://jakubgolebiowski.github.io/lab4/index.html", "c:\windows\tmp", "c:\windows\System32", "/etc/src/bin", "::ffff:c000:0270","2022-10-21", "2022-10-21", "23:11", "11:11", "AM", "#e66465"];
-						var data = {}
-						for (let i = 0; i < fields.length; i++) {
-
-							data[fields[i]] = examples[i].toString();
-						}
-						nameObjectStore.add({myKey: "data", json: JSON.stringify(data)});
-					}
-
-					console.log("upgradee");
+				request.onerror = event => {
+					out.innerHTML = "error when getting data " + event.toString();
 				}
+
+				request.onsuccess = event => {
+					reloadList();
+				}
+
+				transaction.oncomplete = event => {
+					console.log("All done inital load");
+				};
 			}
+
+			request.onupgradeneeded = event => {
+				db = event.target.result;
+				var objectStore = db.createObjectStore("name", {keyPath: 'myKey'});
+				objectStore.createIndex("json", "json", { unique: false});
+
+				objectStore.transaction.oncomplete = event => {
+					var nameObjectStore = db.transaction("name", 'readwrite').objectStore('name');
+					const fields = ["email", "adress", "nip", "ID", "ipv4", "url", "file_dos", "file_dos2", "file_linux", "ipv6", "choose_date", "choose_date_limit", "time", "time2", "time3", "color"];
+					const examples = ["not_my_email@gmail.com", "90-051", "123-125-53-23", "QWE 57685", "123.123.12.32", "https://jakubgolebiowski.github.io/lab4/index.html", "c:\windows\tmp", "c:\windows\System32", "/etc/src/bin", "::ffff:c000:0270","2022-10-21", "2022-10-21", "23:11", "11:11", "AM", "#e66465"];
+					var data = {}
+					for (let i = 0; i < fields.length; i++) {
+						data[fields[i]] = examples[i].toString();
+					}
+					nameObjectStore.add({myKey: "data", json: JSON.stringify(data)});
+				}
+				console.log("upgradee");
+			}
+		}
 
 			var loadedItems = [];
 
