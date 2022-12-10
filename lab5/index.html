@@ -209,30 +209,30 @@
 			}
 		}
 
-			function valueStr(obj) {
-				ret = "";
-				for (let x in obj) {
-					ret += obj[x].toString() + " ";
-				}
-				return ret;
+		function valueStr(obj) {
+			ret = "";
+			for (let x in obj) {
+				ret += obj[x].toString() + " ";
 			}
+			return ret;
+		}
 
-			var searchBar = document.getElementById("search_bar");
-			function searchUser() {
-				var saved = document.getElementById("saved_users").firstChild;
-				var pattern = searchBar.value;
-				var i = 0;
-				for (let ch of saved.children) {
-					var name = loadedItems[i];
-					if ((valueStr(loadedItems[i]).toLowerCase().search(pattern) > -1) || (pattern === "")) {
-						console.log(`found ${pattern} in ${name}`);
-						ch.style.display = 'list-item';
-					} else {
-						ch.style.display = 'none';
-					}
-					i++;
+		var searchBar = document.getElementById("search_bar");
+		function searchUser() {
+			var saved = document.getElementById("saved_users").firstChild;
+			var pattern = searchBar.value;
+			var i = 0;
+			for (let ch of saved.children) {
+				var name = loadedItems[i];
+				if ((valueStr(loadedItems[i]).toLowerCase().search(pattern) > -1) || (pattern === "")) {
+					console.log(`found ${pattern} in ${name}`);
+					ch.style.display = 'list-item';
+				} else {
+					ch.style.display = 'none';
 				}
+				i++;
 			}
+		}
 
 			function deleteItem(key) {
 				var transaction = db.transaction(['name'], 'readwrite');
