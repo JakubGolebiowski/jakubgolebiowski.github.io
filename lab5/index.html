@@ -118,42 +118,43 @@
             element.value = '11:11';
             element = document.getElementById("color");
             element.value="#e66465";
-			
+
 			email_id += 1;
+		}
+
+		var db;
+		window.onload = () => {
+				
+		if (!('indexedDB' in window)) {
+			console.log("no indexeddb");
+			return;
+		}
+		var idb = window.indexedDB;
+		var request = idb.open('test-db1', 3);
+
+		request.onerror = event => {
+			console.log("Error happened: ", event);
+		}
+
+		request.onsuccess = event => {
+			db = event.target.result;
+			console.log("success");
+			var transaction = db.transaction(['name']);
+			var objectStore = transaction.objectStore('name');
+			var request = objectStore.getAll();
+
+			request.onerror = event => {
+				out.innerHTML = "error when getting data " + event.toString();
 			}
 
-			var db;
-			window.onload = () => {
-				
-				if (!('indexedDB' in window)) {
-					console.log("no indexeddb");
-					return;
-				}
-				var idb = window.indexedDB;
-				var request = idb.open('test-db1', 3);
+			request.onsuccess = event => {
+				reloadList();
+			}
 
-				request.onerror = event => {
-					console.log("Error happened: ", event);
-				}
-
-				request.onsuccess = event => {
-					db = event.target.result;
-					console.log("success");
-					var transaction = db.transaction(['name']);
-					var objectStore = transaction.objectStore('name');
-					var request = objectStore.getAll();
-					request.onerror = event => {
-						out.innerHTML = "error when getting data " + event.toString();
-					}
-
-					request.onsuccess = event => {
-						reloadList();
-					}
-
-					transaction.oncomplete = event => {
-						console.log("All done inital load");
-					};
-				}
+			transaction.oncomplete = event => {
+				console.log("All done inital load");
+			};
+		}
 
 				request.onupgradeneeded = event => {
 					db = event.target.result;
