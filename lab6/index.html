@@ -228,7 +228,8 @@
 					if ((valueStr(loadedItems[i]).toLowerCase().search(pattern) > -1) || (pattern === "")) {
 						console.log(`found ${pattern} in ${name}`);
 						ch.style.display = 'list-item';
-					} else {
+					}
+					else {
 						ch.style.display = 'none';
 					}
 					i++;
@@ -244,13 +245,13 @@
 					}
 
 					request.onsuccess = event => {
-						console.log("Item deleted");
+						// console.log("Item deleted");
 						reloadList();
 					}
 			}
 
 			function loadByKey(e) {
-				console.log(e);
+				// console.log(e);
 				var transaction = db.transaction(['name']);
 				var objectStore = transaction.objectStore('name');
 				var request = objectStore.get(e);
@@ -259,7 +260,7 @@
 				}
 
 				request.onsuccess = event => {
-					console.log("got data", request.result);
+					// console.log("got data", request.result);
 					const fields = ["email", "adress", "nip", "ID", "ipv4", "url", "file_dos", "file_dos2", "file_linux", "ipv6", "choose_date", "choose_date_limit", "time", "time2", "time3", "color"];
 					var queried_object = JSON.parse(request.result.json);
 					for (var i of fields) {
@@ -278,10 +279,10 @@
 				const fields = ["email", "adress", "nip", "ID", "ipv4", "url", "file_dos", "file_dos2", "file_linux", "ipv6", "choose_date", "choose_date_limit", "time", "time2", "time3", "color"];
 				var data = {}
 				for (var i of fields) {
-					console.log(i)
+					// console.log(i)
 					data[i] = document.forms[0][i].value.toString();
 				}
-				console.log("data", data);
+				// console.log("data", data);
 				var objectStore = db.transaction(['name']).objectStore('name');
 				var requestGet = objectStore.get(data.email);
 
@@ -304,7 +305,8 @@
 							reloadList();
 						}
 							
-					} else { 
+					}
+					else { 
 						var transaction = db.transaction(['name'], 'readwrite');
 						var objectStore1 = transaction.objectStore('name');
 						var requestAdd = objectStore1.add({myKey: data.email, json: JSON.stringify(data)});
