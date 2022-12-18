@@ -358,17 +358,17 @@
 				event.dataTransfer.clearData();
 			}
 
-		for (let e of fields) {
-			e.addEventListener('dragstart', dragstart);
-			e.addEventListener('drop', dropp);
-			e.addEventListener('dragover', dragover);
-			e.addEventListener('dragleave', dragleave);
-			e.setAttribute('draggable', true);
-		}
+			for (let e of fields) {
+				e.addEventListener('dragstart', dragstart);
+				e.addEventListener('drop', dropp);
+				e.addEventListener('dragover', dragover);
+				e.addEventListener('dragleave', dragleave);
+				e.setAttribute('draggable', true);
+			}
 
-		function removethis(e) {
-			e.target.parentElement.remove();
-		}
+			function removethis(e) {
+				e.target.parentElement.remove();
+			}
 		</script>
 	</body>
 </html>
