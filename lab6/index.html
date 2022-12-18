@@ -84,96 +84,96 @@
 		<div id="saved_users"></div>
 		
 		<script type="text/javascript">
-		var email_id = 0;
-        function change( el )
-        {
-            var element = document.getElementById("email");
-            element.value = 'email'+email_id+'@gmail.com';
-            element = document.getElementById("adress");
-            element.value = '90-000';
-            element = document.getElementById("nip");
-            element.value = '123-123-23-23';
-            element = document.getElementById("ID");
-            element.value = 'QWE 57684';
-            element = document.getElementById("ipv4");
-            element.value = '123.123.12.32';
-            element = document.getElementById("url");
-            element.value = 'https://jakubgolebiowski.github.io/lab2/index.html';
-            element = document.getElementById("file_dos");
-            element.value = 'c:\\windows\\system32';
-            element = document.getElementById("file_dos2");
-            element.value = 'c:\\windows\\system32';
-            element = document.getElementById("file_linux");
-            element.value = '/etc/src';
-            element = document.getElementById("ipv6");
-            element.value = '::ffff:c000:0280';
-            element = document.getElementById("phone");
-            element.value = '48 303 997 505';
-            element = document.getElementById("choose_date");
-            element.value = '2022-10-21';
-            element = document.getElementById("choose_date_limit");
-            element.value = '2022-10-21';
-            element = document.getElementById("time");
-            element.value = '23:11';
-            element = document.getElementById("time2");
-            element.value = '11:11';
-            element = document.getElementById("color");
-            element.value="#e66465";
+			var email_id = 0;
+			function change( el )
+			{
+				var element = document.getElementById("email");
+				element.value = 'email'+email_id+'@gmail.com';
+				element = document.getElementById("adress");
+				element.value = '90-000';
+				element = document.getElementById("nip");
+				element.value = '123-123-23-23';
+				element = document.getElementById("ID");
+				element.value = 'QWE 57684';
+				element = document.getElementById("ipv4");
+				element.value = '123.123.12.32';
+				element = document.getElementById("url");
+				element.value = 'https://jakubgolebiowski.github.io/lab2/index.html';
+				element = document.getElementById("file_dos");
+				element.value = 'c:\\windows\\system32';
+				element = document.getElementById("file_dos2");
+				element.value = 'c:\\windows\\system32';
+				element = document.getElementById("file_linux");
+				element.value = '/etc/src';
+				element = document.getElementById("ipv6");
+				element.value = '::ffff:c000:0280';
+				element = document.getElementById("phone");
+				element.value = '48 303 997 505';
+				element = document.getElementById("choose_date");
+				element.value = '2022-10-21';
+				element = document.getElementById("choose_date_limit");
+				element.value = '2022-10-21';
+				element = document.getElementById("time");
+				element.value = '23:11';
+				element = document.getElementById("time2");
+				element.value = '11:11';
+				element = document.getElementById("color");
+				element.value="#e66465";
 
-			email_id += 1;
-		}
-
-		var db;
-		window.onload = () => {
-			if (!('indexedDB' in window)) {
-				console.log("no indexeddb");
-				return;
-			}
-			var idb = window.indexedDB;
-			var request = idb.open('test-db1', 3);
-
-			request.onerror = event => {
-				console.log("Error happened: ", event);
+				email_id += 1;
 			}
 
-			request.onsuccess = event => {
-				db = event.target.result;
-				console.log("success");
-				var transaction = db.transaction(['name']);
-				var objectStore = transaction.objectStore('name');
-				var request = objectStore.getAll();
+			var db;
+			window.onload = () => {
+				if (!('indexedDB' in window)) {
+					console.log("no indexeddb");
+					return;
+				}
+				var idb = window.indexedDB;
+				var request = idb.open('test-db1', 3);
 
 				request.onerror = event => {
-					out.innerHTML = "error when getting data " + event.toString();
+					console.log("Error happened: ", event);
 				}
 
 				request.onsuccess = event => {
-					reloadList();
-				}
+					db = event.target.result;
+					console.log("success");
+					var transaction = db.transaction(['name']);
+					var objectStore = transaction.objectStore('name');
+					var request = objectStore.getAll();
 
-				transaction.oncomplete = event => {
-					console.log("All done inital load");
-				};
-			}
-
-			request.onupgradeneeded = event => {
-				db = event.target.result;
-				var objectStore = db.createObjectStore("name", {keyPath: 'myKey'});
-				objectStore.createIndex("json", "json", { unique: false});
-
-				objectStore.transaction.oncomplete = event => {
-					var nameObjectStore = db.transaction("name", 'readwrite').objectStore('name');
-					const fields = ["email", "adress", "nip", "ID", "ipv4", "url", "file_dos", "file_dos2", "file_linux", "ipv6", "choose_date", "choose_date_limit", "time", "time2", "time3", "color"];
-					const examples = ["not_my_email@gmail.com", "90-051", "123-125-53-23", "QWE 57685", "123.123.12.32", "https://jakubgolebiowski.github.io/lab4/index.html", "c:\windows\tmp", "c:\windows\System32", "/etc/src/bin", "::ffff:c000:0270","2022-10-21", "2022-10-21", "23:11", "11:11", "AM", "#e66465"];
-					var data = {}
-					for (let i = 0; i < fields.length; i++) {
-						data[fields[i]] = examples[i].toString();
+					request.onerror = event => {
+						out.innerHTML = "error when getting data " + event.toString();
 					}
-					nameObjectStore.add({myKey: "data", json: JSON.stringify(data)});
+
+					request.onsuccess = event => {
+						reloadList();
+					}
+
+					transaction.oncomplete = event => {
+						console.log("All done inital load");
+					};
 				}
-				console.log("upgradee");
+
+				request.onupgradeneeded = event => {
+					db = event.target.result;
+					var objectStore = db.createObjectStore("name", {keyPath: 'myKey'});
+					objectStore.createIndex("json", "json", { unique: false});
+
+					objectStore.transaction.oncomplete = event => {
+						var nameObjectStore = db.transaction("name", 'readwrite').objectStore('name');
+						const fields = ["email", "adress", "nip", "ID", "ipv4", "url", "file_dos", "file_dos2", "file_linux", "ipv6", "choose_date", "choose_date_limit", "time", "time2", "time3", "color"];
+						const examples = ["not_my_email@gmail.com", "90-051", "123-125-53-23", "QWE 57685", "123.123.12.32", "https://jakubgolebiowski.github.io/lab4/index.html", "c:\windows\tmp", "c:\windows\System32", "/etc/src/bin", "::ffff:c000:0270","2022-10-21", "2022-10-21", "23:11", "11:11", "AM", "#e66465"];
+						var data = {}
+						for (let i = 0; i < fields.length; i++) {
+							data[fields[i]] = examples[i].toString();
+						}
+						nameObjectStore.add({myKey: "data", json: JSON.stringify(data)});
+					}
+					console.log("upgradee");
+				}
 			}
-		}
 
 		var loadedItems = [];
 
