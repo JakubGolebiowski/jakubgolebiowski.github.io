@@ -11,7 +11,7 @@
     <a href='/lab3/index.html'> Zadanie 3.</a>
     <a href='/lab4/index.html'> Zadanie 4.</a>
     <a href='/lab4_1/index.html'> Zadanie 4_1.</a>
-    <a href='/lab5z/index.html'> Zadanie 5.</a>
+    <a href='/lab5/index.html'> Zadanie 5.</a>
     <a href='/lab6/index.html'> Zadanie 6.</a>
 </body>
 
