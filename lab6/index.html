@@ -175,40 +175,40 @@
 				}
 			}
 
-		var loadedItems = [];
+			var loadedItems = [];
 
-		function reloadList() {
-			var transaction = db.transaction(['name']);
-			var objectStore = transaction.objectStore('name');
-			var request = objectStore.getAll();
-			request.onerror = event => {
-				out.innerHTML = "error when getting data " + event.toString();
-			}
+			function reloadList() {
+				var transaction = db.transaction(['name']);
+				var objectStore = transaction.objectStore('name');
+				var request = objectStore.getAll();
+				request.onerror = event => {
+					out.innerHTML = "error when getting data " + event.toString();
+				}
 
-			request.onsuccess = event => {
-				loadedItems = [];
-				console.log("Result: ");
-				var div = document.getElementById("saved_users");
-				div.innerHTML = "";
-				var ul = document.createElement("ul");
-				for (var r of request.result) {
-					var itemstr = "";
-					var parsed = JSON.parse(r.json);
-					for (let x in parsed) {
-						itemstr += parsed[x].toString() + ", ";
+				request.onsuccess = event => {
+					loadedItems = [];
+					console.log("Result: ");
+					var div = document.getElementById("saved_users");
+					div.innerHTML = "";
+					var ul = document.createElement("ul");
+					for (var r of request.result) {
+						var itemstr = "";
+						var parsed = JSON.parse(r.json);
+						for (let x in parsed) {
+							itemstr += parsed[x].toString() + ", ";
+						}
+						var li = document.createElement("li");
+						li.innerHTML = `<span onclick="loadByKey('${r.myKey}')">${itemstr}</span><span onclick="deleteItem('${r.myKey}')">X</span>`;
+						loadedItems.push(parsed);
+						ul.appendChild(li);
 					}
-					var li = document.createElement("li");
-					li.innerHTML = `<span onclick="loadByKey('${r.myKey}')">${itemstr}</span><span onclick="deleteItem('${r.myKey}')">X</span>`;
-					loadedItems.push(parsed);
-					ul.appendChild(li);
-				}
-				div.appendChild(ul);
+					div.appendChild(ul);
 
-				if (searchBar.value !== "") {
-					searchUser();
+					if (searchBar.value !== "") {
+						searchUser();
+					}
 				}
 			}
-		}
 
 		function valueStr(obj) {
 			ret = "";
