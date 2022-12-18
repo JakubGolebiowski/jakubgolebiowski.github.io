@@ -235,44 +235,44 @@
 				}
 			}
 
-		function deleteItem(key) {
-			var transaction = db.transaction(['name'], 'readwrite');
+			function deleteItem(key) {
+				var transaction = db.transaction(['name'], 'readwrite');
+					var objectStore = transaction.objectStore('name');
+					var request = objectStore.delete(key);
+					request.onerror = event => {
+						out.innerHTML = "error when getting data " + event.toString();
+					}
+
+					request.onsuccess = event => {
+						console.log("Item deleted");
+						reloadList();
+					}
+			}
+
+			function loadByKey(e) {
+				console.log(e);
+				var transaction = db.transaction(['name']);
 				var objectStore = transaction.objectStore('name');
-				var request = objectStore.delete(key);
+				var request = objectStore.get(e);
 				request.onerror = event => {
 					out.innerHTML = "error when getting data " + event.toString();
 				}
 
 				request.onsuccess = event => {
-					console.log("Item deleted");
-					reloadList();
-				}
-		}
-
-		function loadByKey(e) {
-			console.log(e);
-			var transaction = db.transaction(['name']);
-			var objectStore = transaction.objectStore('name');
-			var request = objectStore.get(e);
-			request.onerror = event => {
-				out.innerHTML = "error when getting data " + event.toString();
-			}
-
-			request.onsuccess = event => {
-				console.log("got data", request.result);
-				const fields = ["email", "adress", "nip", "ID", "ipv4", "url", "file_dos", "file_dos2", "file_linux", "ipv6", "choose_date", "choose_date_limit", "time", "time2", "time3", "color"];
-				var queried_object = JSON.parse(request.result.json);
-				for (var i of fields) {
-					if (i in document.forms[0]) {
-						document.forms[0][i].value = queried_object[i];
+					console.log("got data", request.result);
+					const fields = ["email", "adress", "nip", "ID", "ipv4", "url", "file_dos", "file_dos2", "file_linux", "ipv6", "choose_date", "choose_date_limit", "time", "time2", "time3", "color"];
+					var queried_object = JSON.parse(request.result.json);
+					for (var i of fields) {
+						if (i in document.forms[0]) {
+							document.forms[0][i].value = queried_object[i];
+						}
 					}
 				}
-			}
 
-			transaction.oncomplete = event => {
-				console.log("All done");
-			};
-		}
+				transaction.oncomplete = event => {
+					console.log("All done");
+				};
+			}
 
 		function savedata() {
 			const fields = ["email", "adress", "nip", "ID", "ipv4", "url", "file_dos", "file_dos2", "file_linux", "ipv6", "choose_date", "choose_date_limit", "time", "time2", "time3", "color"];
