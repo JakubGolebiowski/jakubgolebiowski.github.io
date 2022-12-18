@@ -325,38 +325,38 @@
 
 			var draggableelement = null;
 
-		function dragstart(event) {
-			event.dataTransfer.setData('text/plain', event.target.id);
+			function dragstart(event) {
+				event.dataTransfer.setData('text/plain', event.target.id);
+					
+				event
+					.target
+					.style
+					.backgroundColor = 'yellow';
+					draggableelement = event.target;
+			}
 				
-			event
-				.target
-				.style
-				.backgroundColor = 'yellow';
-				draggableelement = event.target;
-		}
-			
-		function dragover(event) {
-			event.preventDefault();
-			event.target.style.background = 'pink';
-		}
+			function dragover(event) {
+				event.preventDefault();
+				event.target.style.background = 'pink';
+			}
 
-		function dragleave(event) {
-			event.preventDefault();
-			event.target.style.background = 'none';
-		}
+			function dragleave(event) {
+				event.preventDefault();
+				event.target.style.background = 'none';
+			}
 
-		function dropp(event) {
-			event.preventDefault();
-			console.log("dropped");
-			let dropzone = event.target;
-			event.target.style.background = 'none';
-			draggableelement.style.background = 'none';
-			var temp = event.target.innerHTML + "";
-			document.forms[0].insertBefore(draggableelement, event.target.nextSibling);
-			document.forms[0].insertBefore(event.target.nextSibling, draggableelement);
-			draggableelement = null;
-			event.dataTransfer.clearData();
-		}
+			function dropp(event) {
+				event.preventDefault();
+				console.log("dropped");
+				let dropzone = event.target;
+				event.target.style.background = 'none';
+				draggableelement.style.background = 'none';
+				var temp = event.target.innerHTML + "";
+				document.forms[0].insertBefore(draggableelement, event.target.nextSibling);
+				document.forms[0].insertBefore(event.target.nextSibling, draggableelement);
+				draggableelement = null;
+				event.dataTransfer.clearData();
+			}
 
 		for (let e of fields) {
 			e.addEventListener('dragstart', dragstart);
